@@ -77,15 +77,17 @@
 	</bean>
 
 	<!-- 登录拦截器 -->
-<!--      <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <mvc:exclude-mapping path="/favicon.ico/**" />
             <mvc:exclude-mapping path="/static/**" />
+            <mvc:exclude-mapping path="/assets/**" />
             <mvc:exclude-mapping path="/Login/**" />
+            <mvc:exclude-mapping path="/upload/**" />
             <bean class="org.nwnu.pub.inter.AdminInterceptor"></bean>
         </mvc:interceptor>
-    </mvc:interceptors>  -->
+    </mvc:interceptors>
 	
     <!-- 上传限制 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

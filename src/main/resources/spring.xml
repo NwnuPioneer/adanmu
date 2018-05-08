@@ -11,14 +11,14 @@
        http://www.springframework.org/schema/util 
        http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/cache  
-        http://www.springframework.org/schema/cache/spring-cache-3.4.5.xsd">
+        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
 
     <!-- 引入属性文件 -->
-<!--     <context:property-placeholder location="classpath:config.properties"/> -->
+    <context:property-placeholder location="classpath:config.properties"/>
 
     <!-- Service包(自动注入) -->
-<!--     <context:component-scan base-package="org.nwnu.**.service"/> -->
+    <context:component-scan base-package="org.nwnu.**.service"/>
 
-<!--      <import resource="classpath:spring-mybatis.xml"/> -->
+     <import resource="classpath:spring-mybatis.xml"/>
      
 </beans>

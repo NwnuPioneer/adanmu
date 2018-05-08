@@ -1,0 +1,36 @@
+<!--_menu 作为公共模版分离出去-->
+<aside class="Hui-aside">
+	<div class="menu_dropdown bk_2">
+		#foreach($sp in $SysRolePrivilege)
+		<dl id="menu-system">
+			#if($!{sp.sysPrivilege.parentcode} == "0000")
+			<dt><i class="Hui-iconfont">&#xe$!{sp.sysPrivilege.iconfont}</i> $!{sp.sysPrivilege.privilegename}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			#end
+			<dd>
+				<ul>
+					#foreach($subsp in $SysRolePrivilege)
+						#if($!{sp.sysPrivilege.privilegecode} == $!{subsp.sysPrivilege.parentcode})
+						<li><a data-href="$!{subsp.sysPrivilege.url}" data-title="$!{subsp.sysPrivilege.privilegename}" href="javascript:void(0)"><i class="Hui-iconfont">&#xe$!{subsp.sysPrivilege.iconfont}</i> $!{subsp.sysPrivilege.privilegename}</a></li>
+						#end
+					#end
+				</ul>
+			</dd>
+		</dl>
+		#end
+		
+		
+		<!-- <dl id="menu-system">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 其他功能demo<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/Upload/UploadExample.do" data-title="上传" href="javascript:void(0)"><i class="Hui-iconfont">&#xe638;</i> 上传</a></li>
+					<li><a data-href="/Ckedit/CkeditExample.do" data-title="编辑框" href="javascript:void(0)"><i class="Hui-iconfont">&#xe6bf;</i> 编辑框</a></li>
+					
+				</ul>
+			</dd>
+		</dl> -->
+		
+</div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+<!--/_menu 作为公共模版分离出去-->

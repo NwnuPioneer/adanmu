@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html>
+#include('/Home/Header.vm')
+<body>
+#block("content")
+	##内容
+#end
+#include('/Home/Footer.vm')
+#block("js")
+	##自己的js
+#end
+</body>
+</html>

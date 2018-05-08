@@ -45,6 +45,23 @@ $(function(){
          value=parseFloat(value);      
          return this.optional(element) || value==0;       
     }, "浮点数必须为0"); 
+    
+    jQuery.validator.addMethod("isPic", function(value, element) {
+    	var reg='(.jpg|.bmp|.gif|.ico|.pcx|.jpeg|.tif|.png|.raw|.tga|.JPG|.PNG|.GIF|.JPEG|.svg|.SVG)$';  //用于验证图片扩展名的正则表达式
+    	var re=new RegExp(reg);
+    	if(re.test(value)){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }, "上传文件必须是图片格式");
+    
+ // 判断浮点数value是否等于0 
+    jQuery.validator.addMethod("isTwoDecimal", function(value, element) { 
+         value=parseFloat(value);
+         var bl = /^-?\d+\.?\d{0,2}$/.test(value)
+         return bl;       
+    }, "金额必须是小于两位小数"); 
       
     // 判断浮点数value是否大于0
     jQuery.validator.addMethod("isFloatGtZero", function(value, element) { 
@@ -84,7 +101,7 @@ $(function(){
     // 匹配integer
     jQuery.validator.addMethod("isInteger", function(value, element) {       
          return this.optional(element) || (/^[-\+]?\d+$/.test(value) && parseInt(value)>=0);       
-    }, "匹配integer");  
+    }, "必须是整数");  
      
     // 判断数值类型，包括整数和浮点数
     jQuery.validator.addMethod("isNumber", function(value, element) {       

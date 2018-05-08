@@ -1,0 +1,163 @@
+#override("content")
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 一级目录 <span class="c-gray en">&gt;</span> 二级目录 <a class="btn btn-success radius r" id="btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray"> 
+		<span class="l">
+		<a href="javascript:;" onclick="BatchDelete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+		<a class="btn btn-primary radius" href="javascript:;" onclick="pub_add('添加','/SysPrivilege/SysPrivilegeView.do')"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a>		 
+		</span> 
+	</div>
+	<table id="tablelist" class="table table-border table-bordered table-hover table-bg">
+		<thead>
+			<tr>
+							<th scope="col" colspan="12"><span class="l">权限列表<span class="pipe">|</span>共 <span id="total"></span> 条</span>					
+					<span class="selectbox radius r">
+					<select class="select" size="1" id="pageSize" name="pageSize">
+					    <option value="10" selected>每页10条</option>
+					    <option value="30">每页30条</option>
+					    <option value="50">每页50条</option>
+					  </select>
+					</span>
+				</th>
+			</tr>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" value="all" name="ckall" id="ckall"></th>
+								 								 				<th width="100">权限编码</th>
+												 				<th width="100">权限名称</th>
+												 				<th width="100">父编码</th>
+												 				<th width="100">地址</th>
+												 				<th width="100"></th>
+												 				<th width="100">是否显示</th>
+												 				<th width="100">显示顺序</th>
+												 				<th width="100">备注</th>
+												 				<th width="100">操作员id</th>
+												 				<th width="100">操作时间</th>
+												<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="pagecontent">
+		</tbody>		
+	</table>
+	<div id="mypage" class="mt-10 text-r"></div>
+</div>
+#end
+#override("js")
+<!--请在下方写此页面业务相关的脚本,首先需要引入laypage插件-->
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+	$(function(){
+		getpage(1);//调用分页
+		/*每页显示条数变化*/
+		$('#pageSize').change(function(){getpage(1);});          
+	})
+	function getpage(curr)//分页函数
+	{	
+		if($('#ckall').is(':checked')){$('#ckall').removeAttr("checked");}//翻页时取消全选状态
+		var pageSize = $('#pageSize').val();//每页显示条数
+		//如果有查询，请在此处获取查询参数，并传入下方的参数部分，例如 var condition=$('#condition').val();
+		$.getJSON('/SysPrivilege/List.do', {page:curr,pagesizes:pageSize}, function(res){ //从第1页开始请求。返回的json格式可以任意定义
+			laypage({
+				cont: 'mypage', //容器。值支持id名、原生dom对象，jquery对象。
+		        pages: Math.ceil(res.total/pageSize), //通过后台拿到的总页数
+		        curr: curr, //初始化当前页
+		        first: false,
+  				last: false,
+		        skip: true, //是否开启跳页
+		        jump: function(obj,first){ //触发分页后的回调
+		         if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
+                     getpage(obj.curr);
+                 }
+		        }
+		    });
+		     $('#total').html(res.total);//显示总数
+		     $('#pagecontent').html(PackagData(res));//附加翻页内容
+		});
+	}
+	function PackagData(res){//分页内容展示
+		var content="";
+	    $.each(res.data,function(i,o){
+	        content+="<tr class=\"text-c\"><td >";
+	        content+="<input type=\"checkbox\" value=\""+o.id+"\" name=\"ck\"/></td>";
+	        	         	        	         	        content+="<td>"+o.privilegecode+"</td>";
+	        	        	         	        content+="<td>"+o.privilegename+"</td>";
+	        	        	         	        content+="<td>"+o.parentcode+"</td>";
+	        	        	         	        content+="<td>"+o.url+"</td>";
+	        	        	         	        content+="<td>"+o.iconfont+"</td>";
+	        	        	         	        content+="<td>"+o.isshow+"</td>";
+	        	        	         	        content+="<td>"+o.sequence+"</td>";
+	        	        	         	        content+="<td>"+o.remark+"</td>";
+	        	        	         	        content+="<td>"+o.uid+"</td>";
+	        	        	         	        content+="<td>"+o.uptime+"</td>";
+	        	        	        content+="<td class=\"td-manage\">";	        
+	        content+="<a title=\"编辑\" href=\"javascript:;\" onclick=\"pub_edit('编辑','/SysPrivilege/SysPrivilegeView.do?id="+o.id+"')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a>"; 
+	        content+="<a title=\"删除\" href=\"javascript:;\" onclick=\"pub_del(this,"+o.id+")\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>";
+	        content+="</td></tr>";
+	         
+	    });
+	    return content;
+	}
+
+/*添加*/
+function pub_add(title,url){
+	layer_maxshow(title,url);
+}
+/*编辑*/
+function pub_edit(title,url){
+	layer_maxshow(title,url);
+}
+/*删除*/
+function pub_del(obj,id){
+	layer.confirm('删除须谨慎，确认要删除吗？',function(){
+		$.ajax({
+			type: 'POST',
+			url: '/SysPrivilege/Delete.do?id='+id,
+			dataType: 'json',
+			success: function(result){
+				if(result.success)
+				{
+					$(obj).parents("tr").remove();				
+					layer.msg(result.msg,{icon:1,time:1500});
+				}else
+				{
+					layer.msg(result.msg,{icon:2,time:1500});
+				}
+			},
+			error:function(data) {
+				layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
+			}
+		});		
+	});
+}
+/*批量删除*/
+function BatchDelete()
+{	
+	var ids = '';
+	$('table input[type="checkbox"]:checked').each(function(){		
+		ids += $(this).val() + ',';
+	});
+	layer.confirm('删除须谨慎，确认要删除吗？',function(){
+		$.ajax({
+			type: 'POST',
+			url: '/SysPrivilege/BatchDelete.do?ids='+ids,
+			dataType: 'json',
+			success: function(result){
+				if(result.success)
+				{					    
+					getpage(1);//批量删除成功后重新加载第一页							
+					layer.msg(result.msg,{icon:1,time:1500});
+				}else
+				{
+					layer.msg(result.msg,{icon:2,time:1500});
+				}
+			},
+			error:function(data) {
+				layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
+			}
+		});		
+	});
+	
+}
+
+</script>
+#end
+#extends("/Home/Layout.vm")

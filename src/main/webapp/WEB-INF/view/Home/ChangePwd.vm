@@ -1,0 +1,111 @@
+#override("content")
+<article class="page-container">
+	<form class="form form-horizontal" id="form-view">
+	            		<input type="hidden" id="id" name="id" value="$!{ResUser.id}"/>
+			        		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>原密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input id="pwd" name="pwd" type="password"  class="input-text"  placeholder="请输入原密码" value="" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>新密码:</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input  id="newpassword"  name="newPwd" type="password" class="input-text" autocomplete="off" placeholder="不修改请留空" value="">
+			</div>
+		</div>
+				        		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>确认密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input  id="new-password2"  name="newPwd2" type="password" class="input-text" autocomplete="off" placeholder="不修改请留空" value="">
+			</div>
+		</div>
+				
+				        	
+						<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">				
+				<button type="submit" class="btn btn-danger radius" ><i class="Hui-iconfont">&#xe632;</i>保存</button>
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</article>
+#end
+<!-- 这是一个select示例   
+<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">是否启用：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+		        						<div class="radio-box">
+					    <input type="radio" id="radio-1" name="status" value="a" checked>
+					    <label for="radio-1">是</label>
+					 </div>
+					  <div class="radio-box">
+					    <input type="radio" id="radio-2" name="status" value="b">
+					    <label for="radio-2">否</label>
+					  </div>	
+									
+			</div>
+</div>	 -->
+#override("js")
+<!--请在下方写此页面业务相关的脚本,首先需要引入juery.validate表单验证插件-->
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		//表单验证,如果有其他需要直接添加即可，比如可以填入digits:true必须输入数字，这个根据jquery.validate插件验证规则
+		$("#form-view").validate({
+				rules:{
+				 	
+				  	pwd:{
+						required:true,
+					},
+					newPwd:{
+						required:true,
+						minlength:6,
+						maxlength:16
+					},
+					newPwd2:{
+						required:true,
+						minlength:6,
+						maxlength:16,
+						equalTo: "#newpassword"
+					},
+				  				 				},
+				onkeyup:false,
+				focusCleanup:true,
+				success:"valid",
+				submitHandler:function(form){
+				var param = $("#form-view").serialize(); //表单内容序列化
+					 $.ajax({
+					        url: '/Home/SavePwd.do',
+					 		type: 'POST',
+					 		dataType:'json',
+							data:param,
+			                success:function(result){
+			                if(result.success)
+							{
+								parent.layer.msg(result.msg,{icon:1,time:2500});
+								//以下为关闭当前frame，并刷新父页面
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.$("#pagecontent").load(window.parent.location.href+"#pagecontent");//刷新父页面表格tbody
+								parent.$("#mypage").load(window.parent.location.href+"#mypage");//分页也需要刷新一下
+								parent.layer.close(index);
+								
+							}else
+							{
+								layer.msg(result.msg,{icon:2,time:1500});
+							}
+							},
+							error:function(data) {
+								layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
+							}
+		                }); 
+				  }
+		});
+		
+	})
+</script>
+#end
+#extends("/Home/Layout.vm")
