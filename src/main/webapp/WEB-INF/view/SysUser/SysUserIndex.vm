@@ -40,6 +40,7 @@
 #override("js")
 <!--请在下方写此页面业务相关的脚本,首先需要引入laypage插件-->
 <script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> 
 <script type="text/javascript">
 	$(function(){
 		getpage(1);//调用分页

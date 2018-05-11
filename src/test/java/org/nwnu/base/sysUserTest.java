@@ -22,9 +22,9 @@ public class sysUserTest {
 	@Test
 	public void Select(){
 		//SysUser sysLoginUsers = sysuserService.selectOne(new EntityWrapper<SysUser>().eq("tel", "13321224698"));
-		List<SysDict> sydDict=sysdictService.selectList(new EntityWrapper<SysDict>());
+/*		List<SysDict> sydDict=sysdictService.selectList(new EntityWrapper<SysDict>());
 		for(SysDict ss:sydDict){
 			System.out.println("8888888888"+ss);
-		}
+		}*/
 	}
 }
