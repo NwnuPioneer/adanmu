@@ -18,8 +18,13 @@
 		<result column="uptime" property="uptime" />
 	</resultMap>
 
-    <!-- 通用查询结果列-->
-    <sql id="Base_Column_List">
-        id, privilegecode, privilegename, parentcode, url, iconfont, isshow, sequence, remark, uid, uptime
-    </sql>
+	<select id="getCode"  resultType="string">
+	    SELECT   right(concat('0000',rtrim(max(privilegeCode) + 1)), 4) AS codestr
+	    FROM      sys_privilege
+  	</select>
+  	
+  	<select id="getParentCode" resultType="string">
+     SELECT   concat(right(concat('00',ltrim(max(left(privilegecode, 2)) + 1)), 2),'00') as codestr
+      FROM sys_privilege
+  </select>
 </mapper>

@@ -16,8 +16,12 @@
 		<result column="uptime" property="uptime" />
 	</resultMap>
 
-    <!-- 通用查询结果列-->
-    <sql id="Base_Column_List">
-        id, rolecode, rolename, roletype, sequence, status, remark, uid, uptime
-    </sql>
+    <select id="getCode" resultType="string">
+         select   right(concat('0000',rtrim(max(roleCode) + 1)), 4) AS codestr        
+          FROM  sys_role
+  </select>
+   <select id="selectByroleCode" parameterType="String" resultMap="BaseResultMap">
+          select   *        
+          FROM  sys_role where roleCode=#{roleCode}#
+  </select>
 </mapper>

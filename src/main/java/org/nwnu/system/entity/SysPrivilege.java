@@ -44,12 +44,12 @@ public class SysPrivilege implements Serializable {
 	 * 地址
 	 */
 	private String url;
-
+	
 	/**
-	 * 
+	 * 地址
 	 */
 	private String iconfont;
-
+	
 	/**
 	 * 是否显示
 	 */
@@ -117,14 +117,6 @@ public class SysPrivilege implements Serializable {
 		this.url = url;
 	}
 
-	public String getIconfont() {
-		return iconfont;
-	}
-
-	public void setIconfont(String iconfont) {
-		this.iconfont = iconfont;
-	}
-
 	public String getIsshow() {
 		return isshow;
 	}
@@ -164,5 +156,15 @@ public class SysPrivilege implements Serializable {
 	public void setUptime(Date uptime) {
 		this.uptime = uptime;
 	}
+
+	public String getIconfont() {
+		return iconfont;
+	}
+
+	public void setIconfont(String iconfont) {
+		this.iconfont = iconfont;
+	}
+	
+	
 
 }

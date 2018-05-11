@@ -59,8 +59,15 @@ public class SysDict implements Serializable {
 	 * 操作时间
 	 */
 	private Date uptime;
-
-
+	@TableField(exist = false)
+	private String uName;
+	public String getUName(){
+		return uName;
+	}
+	
+	public void setUName(String uName){
+		this.uName=uName;
+	}
 
 	public Integer getId() {
 		return id;

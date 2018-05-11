@@ -3,8 +3,11 @@ package org.nwnu.system.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+
 import org.nwnu.system.entity.SysDict;
+import org.nwnu.system.entity.SysUser;
 import org.nwnu.system.service.SysDictService;
+import org.nwnu.system.service.SysUserService;
 import org.nwnu.base.controller.BaseController;//基础包
 import org.nwnu.pub.util.StringUtil;//自定义字符串处理类，如果没有就取掉
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 /**
@@ -35,6 +39,8 @@ import java.util.Map;
 public class SysDictController extends BaseController {
 	@Autowired
 	private SysDictService this_SysDictService;	
+	@Autowired
+	private SysUserService this_SysUserService;
 	
 	/***
 	 * 每个controller的首页
@@ -65,8 +71,17 @@ public class SysDictController extends BaseController {
 		//例如wrapper.eq();			
 		List<SysDict> SysDictList=this_SysDictService.selectPage(
 				new Page<SysDict>(page,pagesizes),
-				wrapper.orderBy("id", false)//根据id倒序输出
+				wrapper.orderBy("seq", true)//根据顺序倒序输出
 				).getRecords();	
+		for(SysDict sd:SysDictList){
+			SysUser sysUser=this_SysUserService.selectById(sd.getUid());
+			if(sysUser!=null){
+				sd.setUName(sysUser.getName());
+			}
+			else{
+				sd.setUName("该用户已不存在");
+			}
+		}
 		Map<String, Object> result = new HashMap<String, Object>();		
 		int total=this_SysDictService.selectList(wrapper).size();		
 		result.put("total", total);
@@ -110,12 +125,8 @@ public class SysDictController extends BaseController {
 		 	return renderError("字段存储值不能为空");		}
 			  		 	 	 if(StringUtil.isEmpty(this_SysDict.getSeq())){
 		 	return renderError("显示顺序不能为空");		}
-			  		 	 	 if(StringUtil.isEmpty(this_SysDict.getUid())){
-		 	return renderError("操作员id不能为空");		}
-			  		 	 	 if(StringUtil.isEmpty(this_SysDict.getUptime())){
-		 	return renderError("操作时间不能为空");		}
-/*			  	   this_SysDict.setOperator(((SysUser)session.getAttribute("loginedUser")).getName());
-	   this_SysDict.setUpTime(new Date());*/
+	   this_SysDict.setUid(((SysUser)session.getAttribute("sysLoginUser")).getId());
+	   this_SysDict.setUptime(new Date());
 	   if (this_SysDict.getId() == null) {
             return this_SysDictService.insert(this_SysDict) ? renderSuccess("添加成功") : renderError("添加失败");
         } else {
@@ -160,7 +171,5 @@ public class SysDictController extends BaseController {
 		}
 		
 	}
-	
-	
 	
 }

@@ -1,6 +1,7 @@
 package org.nwnu.system.mapper;
 
 import org.nwnu.system.entity.SysRole;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -12,5 +13,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2018-05-08
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
-
+	String getCode();
+	SysRole selectByroleCode(String roleCode);
 }

@@ -1,6 +1,7 @@
 package org.nwnu.system.service;
 
 import org.nwnu.system.entity.SysPrivilege;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2018-05-08
  */
 public interface SysPrivilegeService extends IService<SysPrivilege> {
-	
+	String getCode();		
 }

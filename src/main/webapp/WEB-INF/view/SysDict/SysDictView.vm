@@ -5,43 +5,31 @@
 				        		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>字段名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="dict" name="dict" type="text" class="input-text" value="$!{SysDict.dict}" placeholder="请输入字段名称" >
+				<input id="dict" name="dict" type="text" class="input-text radius" value="$!{SysDict.dict}" placeholder="请输入字段名称" >
 			</div>
 		</div>
 				        		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>字段中文名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="dictzh" name="dictzh" type="text" class="input-text" value="$!{SysDict.dictzh}" placeholder="请输入字段中文名称" >
+				<input id="dictzh" name="dictzh" type="text" class="input-text radius" value="$!{SysDict.dictzh}" placeholder="请输入字段中文名称" >
 			</div>
 		</div>
 				        		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>字段显示：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="dictname" name="dictname" type="text" class="input-text" value="$!{SysDict.dictname}" placeholder="请输入字段显示" >
+				<input id="dictname" name="dictname" type="text" class="input-text radius" value="$!{SysDict.dictname}" placeholder="请输入字段显示" >
 			</div>
 		</div>
 				        		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>字段存储值：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="dictvalue" name="dictvalue" type="text" class="input-text" value="$!{SysDict.dictvalue}" placeholder="请输入字段存储值" >
+				<input id="dictvalue" name="dictvalue" type="text" class="input-text radius" value="$!{SysDict.dictvalue}" placeholder="请输入字段存储值" >
 			</div>
 		</div>
 				        		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>显示顺序：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="seq" name="seq" type="text" class="input-text" value="$!{SysDict.seq}" placeholder="请输入显示顺序" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>操作员id：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="uid" name="uid" type="text" class="input-text" value="$!{SysDict.uid}" placeholder="请输入操作员id" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>操作时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="uptime" name="uptime" type="text" class="input-text" value="$!{SysDict.uptime}" placeholder="请输入操作时间" >
+				<input id="seq" name="seq" type="text" class="input-text radius" value="$!{SysDict.seq}" placeholder="请输入显示顺序" >
 			</div>
 		</div>
 						<div class="row cl">
@@ -79,28 +67,23 @@
 		//表单验证,如果有其他需要直接添加即可，比如可以填入digits:true必须输入数字，这个根据jquery.validate插件验证规则
 		$("#form-view").validate({
 				rules:{
-				 				  				 				  					dict:{
+				 	dict:{
 						required:true,
 					},
-				  				 				  					dictzh:{
+				  	dictzh:{
 						required:true,
 					},
-				  				 				  					dictname:{
+				  	dictname:{
 						required:true,
 					},
-				  				 				  					dictvalue:{
+				  	dictvalue:{
 						required:true,
 					},
-				  				 				  					seq:{
+				  	seq:{
 						required:true,
+						digits:true,
 					},
-				  				 				  					uid:{
-						required:true,
-					},
-				  				 				  					uptime:{
-						required:true,
-					},
-				  				 				},
+				},
 				onkeyup:false,
 				focusCleanup:true,
 				success:"valid",
@@ -132,7 +115,6 @@
 		                }); 
 				  }
 		});
-		
 	})
 </script>
 #end

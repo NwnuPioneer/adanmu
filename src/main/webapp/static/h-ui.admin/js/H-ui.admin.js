@@ -205,6 +205,23 @@ function layer_show(title,url,w,h){
 		content: url
 	});
 }
+function layer_maxshow(title,url){
+	if (title == null || title == '') {
+		title=false;
+	};
+	if (url == null || url == '') {
+		url="404.html";
+	};			
+	var index=layer.open({
+		type: 2,		
+		fix: false, //不固定
+		maxmin: false,
+		shade:0.4,
+		title: title,
+		content: url
+	});
+	layer.full(index);
+}
 /*关闭弹出框口*/
 function layer_close(){
 	var index = parent.layer.getFrameIndex(window.name);

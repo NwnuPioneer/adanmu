@@ -1,166 +1,146 @@
 #override("content")
-<article class="page-container">
-	<form class="form form-horizontal" id="form-view">
-	            		<input type="hidden" id="id" name="id" value="$!{SysPrivilege.id}"/>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>权限编码：</label>
+<article class="page-container" style="margin-left: 5%">
+	<form class="form form-horizontal" id="form-admin-permission-add">
+        <input type="text" class="input-text radius hidden" value="$!{sysPrivilege.id}" placeholder="" id="id" name="id">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>父级菜单：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box radius">
+					<select class="select" size="1" name="parentcode">
+						<option value="0000">顶级菜单</option>
+						#foreach($spr in $sysPrivilegeList)
+	                        #if($!{sysPrivilege.parentcode} == $!{spr.privilegecode})
+	                                <option value="$!{spr.privilegecode}" selected>$!{spr.privilegename}</option>
+	                            #end
+	                            <option value="$!{spr.privilegecode}">$!{spr.privilegename}</option>
+	                    #end
+					</select>
+				</span>
+            </div>
+        </div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜单名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="privilegecode" name="privilegecode" type="text" class="input-text" value="$!{SysPrivilege.privilegecode}" placeholder="请输入权限编码" >
+				<input type="text" class="input-text radius" value="$!{sysPrivilege.privilegename}" placeholder="" id="privilegename" name="privilegename">
 			</div>
 		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>权限名称：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="privilegename" name="privilegename" type="text" class="input-text" value="$!{SysPrivilege.privilegename}" placeholder="请输入权限名称" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>父编码：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="parentcode" name="parentcode" type="text" class="input-text" value="$!{SysPrivilege.parentcode}" placeholder="请输入父编码" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="url" name="url" type="text" class="input-text" value="$!{SysPrivilege.url}" placeholder="请输入地址" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="iconfont" name="iconfont" type="text" class="input-text" value="$!{SysPrivilege.iconfont}" placeholder="请输入" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否显示：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="isshow" name="isshow" type="text" class="input-text" value="$!{SysPrivilege.isshow}" placeholder="请输入是否显示" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>显示顺序：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="sequence" name="sequence" type="text" class="input-text" value="$!{SysPrivilege.sequence}" placeholder="请输入显示顺序" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>备注：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="remark" name="remark" type="text" class="input-text" value="$!{SysPrivilege.remark}" placeholder="请输入备注" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>操作员id：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="uid" name="uid" type="text" class="input-text" value="$!{SysPrivilege.uid}" placeholder="请输入操作员id" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>操作时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="uptime" name="uptime" type="text" class="input-text" value="$!{SysPrivilege.uptime}" placeholder="请输入操作时间" >
-			</div>
-		</div>
-						<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">				
-				<button type="submit" class="btn btn-danger radius" ><i class="Hui-iconfont">&#xe632;</i> 提交</button>
-				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜单编码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text radius" value="$!{sysPrivilege.privilegecode}" placeholder="" id="privilegecode" name="privilegecode">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>URL：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text radius" value="$!{sysPrivilege.url}" placeholder="" id="url" name="url">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>菜单图标：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text radius" value="$!{sysPrivilege.iconfont}" placeholder="" id="iconfont" name="iconfont">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>显示顺序：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text radius" value="$!{sysPrivilege.sequence}" placeholder="" id="sequence" name="sequence">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否启用：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				  	<select class="select" size="1" name="isshow">
+						#if($!{sysPrivilege.isshow} == "b")
+                            <option value="a">是</option>
+                            <option value="b" selected>否</option>
+						#else
+                            <option value="a" selected>是</option>
+                            <option value="b">否</option>
+						#end
+				  	</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text radius" value="$!{sysPrivilege.remark}" placeholder="" id="remark" name="remark">
+            </div>
+        </div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button type="submit" class="btn btn-danger radius" id="admin-role-save"><i class="Hui-iconfont">&#xe632;</i> 提交 </button>
+                <button class="btn btn-default radius" id="admin-role-cannel" onclick="layer_close()">&nbsp;&nbsp;取消 &nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</form>
 </article>
 #end
-<!-- 这是一个select示例   
-<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">是否启用：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-		        						<div class="radio-box">
-					    <input type="radio" id="radio-1" name="status" value="a" checked>
-					    <label for="radio-1">是</label>
-					 </div>
-					  <div class="radio-box">
-					    <input type="radio" id="radio-2" name="status" value="b">
-					    <label for="radio-2">否</label>
-					  </div>	
-									
-			</div>
-</div>	 -->
 #override("js")
-<!--请在下方写此页面业务相关的脚本,首先需要引入juery.validate表单验证插件-->
-<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
+$(function(){
 
-	$(function(){
-		//表单验证,如果有其他需要直接添加即可，比如可以填入digits:true必须输入数字，这个根据jquery.validate插件验证规则
-		$("#form-view").validate({
-				rules:{
-				 				  				 				  					privilegecode:{
-						required:true,
-					},
-				  				 				  					privilegename:{
-						required:true,
-					},
-				  				 				  					parentcode:{
-						required:true,
-					},
-				  				 				  					url:{
-						required:true,
-					},
-				  				 				  					iconfont:{
-						required:true,
-					},
-				  				 				  					isshow:{
-						required:true,
-					},
-				  				 				  					sequence:{
-						required:true,
-					},
-				  				 				  					remark:{
-						required:true,
-					},
-				  				 				  					uid:{
-						required:true,
-					},
-				  				 				  					uptime:{
-						required:true,
-					},
-				  				 				},
-				onkeyup:false,
-				focusCleanup:true,
-				success:"valid",
-				submitHandler:function(form){
-				var param = $("#form-view").serialize(); //表单内容序列化
-					 $.ajax({
-					        url: '/SysPrivilege/Save.do',
-					 		type: 'POST',
-					 		dataType:'json',
-							data:param,
-			                success:function(result){
-			                if(result.success)
-							{
-								parent.layer.msg(result.msg,{icon:1,time:2500});
-								//以下为关闭当前frame，并刷新父页面
-								var index = parent.layer.getFrameIndex(window.name);
-								parent.$("#pagecontent").load(window.parent.location.href+"#pagecontent");//刷新父页面表格tbody
-								parent.$("#mypage").load(window.parent.location.href+"#mypage");//分页也需要刷新一下
-								parent.layer.close(index);
-								
-							}else
-							{
-								layer.msg(result.msg,{icon:2,time:1500});
-							}
-							},
-							error:function(data) {
-								layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
-							}
-		                }); 
-				  }
-		});
-		
-	})
+    $('#form-admin-permission-add').validate({
+		rules:{
+            privilegename:{
+				required:true,
+			},
+            privilegecode:{
+			    required:true,
+			},
+            isshow:{
+			    required:true,
+			},
+            sequence:{
+                required:true,
+            },
+            url:{
+                required:true,
+            },
+            iconfont:{
+            	required:true,
+            }
+		},
+		onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+		    var param = $('#form-admin-permission-add').serialize();
+            $.ajax({
+                url: '/SysPrivilege/save.do',
+                type: 'POST',
+                dataType:'json',
+                data:param,
+                success:function(result){
+                    if(result.success)
+                    {
+                        //以下为关闭当前frame，并刷新父页面
+                        parent.layer.msg(result.msg,{icon:1,time:1000});
+                       	var index = parent.layer.getFrameIndex(window.name);
+                        parent.location.reload();//刷新父页面
+                        parent.layer.close(index);
+
+                    }else
+                    {
+                        layer.msg(result.msg,{icon:2,time:1000});
+                        layer_close();
+                    }
+                },
+                error:function(data) {
+                    layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
+                    layer_close();
+                }
+            });
+        },
+
+    });
+});
 </script>
 #end
 #extends("/Home/Layout.vm")

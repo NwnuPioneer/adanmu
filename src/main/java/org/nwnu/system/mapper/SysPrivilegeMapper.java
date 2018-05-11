@@ -1,6 +1,7 @@
 package org.nwnu.system.mapper;
 
 import org.nwnu.system.entity.SysPrivilege;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -12,5 +13,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2018-05-08
  */
 public interface SysPrivilegeMapper extends BaseMapper<SysPrivilege> {
-
+	String getCode();
+	String getParentCode();
 }

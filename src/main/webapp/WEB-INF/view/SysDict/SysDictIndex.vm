@@ -1,5 +1,5 @@
 #override("content")
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 一级目录 <span class="c-gray en">&gt;</span> 二级目录 <a class="btn btn-success radius r" id="btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 数据字典 <a class="btn btn-success radius r" id="btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray"> 
 		<span class="l">
@@ -22,14 +22,14 @@
 			</tr>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" value="all" name="ckall" id="ckall"></th>
-								 								 				<th width="100">字段名称</th>
-												 				<th width="100">字段中文名称</th>
-												 				<th width="100">字段显示</th>
-												 				<th width="100">字段存储值</th>
-												 				<th width="100">显示顺序</th>
-												 				<th width="100">操作员id</th>
-												 				<th width="100">操作时间</th>
-												<th>操作</th>
+				<th width="100">字段名称</th>
+ 				<th width="100">字段中文名称</th>
+ 				<th width="100">字段显示</th>
+ 				<th width="100">字段存储值</th>
+ 				<th width="100">显示顺序</th>
+ 				<th width="100">管理员</th>
+ 				<th width="200">操作时间</th>
+				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody id="pagecontent">
@@ -80,7 +80,7 @@
 	        	        	         	        content+="<td>"+o.dictname+"</td>";
 	        	        	         	        content+="<td>"+o.dictvalue+"</td>";
 	        	        	         	        content+="<td>"+o.seq+"</td>";
-	        	        	         	        content+="<td>"+o.uid+"</td>";
+	        	        	         	        content+="<td>"+o.uName+"</td>";
 	        	        	         	        content+="<td>"+o.uptime+"</td>";
 	        	        	        content+="<td class=\"td-manage\">";	        
 	        content+="<a title=\"编辑\" href=\"javascript:;\" onclick=\"pub_edit('编辑','/SysDict/SysDictView.do?id="+o.id+"')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a>"; 

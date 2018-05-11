@@ -1,163 +1,204 @@
 #override("content")
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 一级目录 <span class="c-gray en">&gt;</span> 二级目录 <a class="btn btn-success radius r" id="btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限管理 <a id="btn-refresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace('/SysPrivilege/SysPrivilegeIndex.do');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray"> 
-		<span class="l">
-		<a href="javascript:;" onclick="BatchDelete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-		<a class="btn btn-primary radius" href="javascript:;" onclick="pub_add('添加','/SysPrivilege/SysPrivilegeView.do')"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a>		 
-		</span> 
+	<div class="cl pd-5 bg-1 bk-gray">
+		<span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+			<a href="javascript:;" onclick="admin_permission_add('添加权限节点','/SysPrivilege/SysPrivilegeView.do','500','450')" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe600;</i>
+				添加权限</a>
+		</span>
 	</div>
-	<table id="tablelist" class="table table-border table-bordered table-hover table-bg">
+	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-							<th scope="col" colspan="12"><span class="l">权限列表<span class="pipe">|</span>共 <span id="total"></span> 条</span>					
-					<span class="selectbox radius r">
-					<select class="select" size="1" id="pageSize" name="pageSize">
-					    <option value="10" selected>每页10条</option>
-					    <option value="30">每页30条</option>
-					    <option value="50">每页50条</option>
-					  </select>
-					</span>
-				</th>
+				<th scope="col" colspan="10"><span class="l">权限管理列表<span class="pipe">|</span>共 <span id="total"></span>${count} 条</span>
 			</tr>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" value="all" name="ckall" id="ckall"></th>
-								 								 				<th width="100">权限编码</th>
-												 				<th width="100">权限名称</th>
-												 				<th width="100">父编码</th>
-												 				<th width="100">地址</th>
-												 				<th width="100"></th>
-												 				<th width="100">是否显示</th>
-												 				<th width="100">显示顺序</th>
-												 				<th width="100">备注</th>
-												 				<th width="100">操作员id</th>
-												 				<th width="100">操作时间</th>
-												<th>操作</th>
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="40">ID</th>
+				<th width="150">权限名称</th>
+				<th width="300">URL</th>
+				<th width="40">菜单图标</th>
+                <th width="40">是否启用</th>
+                <th width="40">显示顺序</th>
+                <th width="80">备注</th>
+				<th width="100">操作</th>
 			</tr>
 		</thead>
-		<tbody id="pagecontent">
-		</tbody>		
+		<tbody>
+			#foreach($sp in $sysPrivilegeLists)
+				<tr class="text-c #if($!{sp.parentcode}=="0000")warning#end">
+					<td><input type="checkbox" value="1" name=""></td>
+					<td style="display:none;">$!{sp.id}</td>
+					<td>$!{sp.privilegecode}</td>
+					<td>$!{sp.privilegename}</td>
+                    <td>$!{sp.url}</td>
+                    <td>$!{sp.iconfont}</td>
+					#if($!{sp.isshow} == "a")
+                        <td class="td-status"><span class="label label-success radius">已启用</span></td>
+					#elseif($!{sp.isshow} == "b")
+                        <td class="td-status"><span class="label label-default radius">已停用</span></td>
+					#end
+                    <td>$!{sp.sequence}</td>
+                    <td>$!{sp.remark}</td>
+					<td class="td-manage">
+						#if($!{sp.isshow} == "a")
+                        	<a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="停用">
+								<i class="Hui-iconfont">&#xe631;</i>
+							</a>
+						#elseif($!{sp.isshow} == "b")
+                            <a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用">
+								<i class="Hui-iconfont">&#xe615;</i>
+							</a>
+						#end
+						<a title="编辑" href="javascript:;" onclick="admin_permission_edit('角色编辑','/SysPrivilege/SysPrivilegeView.do?id=$!{sp.id}','1','500','450')"
+						   class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6df;</i>
+						</a>
+						<a title="删除" href="javascript:;" onclick="admin_permission_del(this,'$!{sp.id}')" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					</td>
+				</tr>
+			#end
+		</tbody>
 	</table>
-	<div id="mypage" class="mt-10 text-r"></div>
 </div>
-#end
-#override("js")
-<!--请在下方写此页面业务相关的脚本,首先需要引入laypage插件-->
-<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-	$(function(){
-		getpage(1);//调用分页
-		/*每页显示条数变化*/
-		$('#pageSize').change(function(){getpage(1);});          
-	})
-	function getpage(curr)//分页函数
-	{	
-		if($('#ckall').is(':checked')){$('#ckall').removeAttr("checked");}//翻页时取消全选状态
-		var pageSize = $('#pageSize').val();//每页显示条数
-		//如果有查询，请在此处获取查询参数，并传入下方的参数部分，例如 var condition=$('#condition').val();
-		$.getJSON('/SysPrivilege/List.do', {page:curr,pagesizes:pageSize}, function(res){ //从第1页开始请求。返回的json格式可以任意定义
-			laypage({
-				cont: 'mypage', //容器。值支持id名、原生dom对象，jquery对象。
-		        pages: Math.ceil(res.total/pageSize), //通过后台拿到的总页数
-		        curr: curr, //初始化当前页
-		        first: false,
-  				last: false,
-		        skip: true, //是否开启跳页
-		        jump: function(obj,first){ //触发分页后的回调
-		         if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
-                     getpage(obj.curr);
-                 }
-		        }
-		    });
-		     $('#total').html(res.total);//显示总数
-		     $('#pagecontent').html(PackagData(res));//附加翻页内容
+
+	$(function () {
+		$('#search').click(function () {
+		    var keyWord = $('#keyWord').val();
+		    location.href = '/permission/admin-permission.do?keyWord='+keyWord;
+        })
+    })
+	/*
+		参数解释：
+		title	标题
+		url		请求的url
+		id		需要操作的数据id
+		w		弹出层宽度（缺省调默认值）
+		h		弹出层高度（缺省调默认值）
+	*/
+	/*管理员-权限-添加*/
+	function admin_permission_add(title,url,w,h){
+		layer_maxshow(title,url);
+	}
+	/*管理员-权限-编辑*/
+	function admin_permission_edit(title,url,id,w,h){
+		layer_maxshow(title,url);
+	}
+
+	/*管理员-权限-删除*/
+	function admin_permission_del(obj,id){
+		layer.confirm('确认要删除吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				url: '/SysPrivilege/delete.do?id='+id,
+				dataType: 'json',
+				success: function(result){
+					if(result.success){
+						$(obj).parents("tr").remove();
+						layer.msg(result.msg,{icon:1,time:1000});
+					}
+					else{
+						layer.msg(result.msg,{icon:1,time:1000});
+					}
+				},
+			});
 		});
 	}
-	function PackagData(res){//分页内容展示
-		var content="";
-	    $.each(res.data,function(i,o){
-	        content+="<tr class=\"text-c\"><td >";
-	        content+="<input type=\"checkbox\" value=\""+o.id+"\" name=\"ck\"/></td>";
-	        	         	        	         	        content+="<td>"+o.privilegecode+"</td>";
-	        	        	         	        content+="<td>"+o.privilegename+"</td>";
-	        	        	         	        content+="<td>"+o.parentcode+"</td>";
-	        	        	         	        content+="<td>"+o.url+"</td>";
-	        	        	         	        content+="<td>"+o.iconfont+"</td>";
-	        	        	         	        content+="<td>"+o.isshow+"</td>";
-	        	        	         	        content+="<td>"+o.sequence+"</td>";
-	        	        	         	        content+="<td>"+o.remark+"</td>";
-	        	        	         	        content+="<td>"+o.uid+"</td>";
-	        	        	         	        content+="<td>"+o.uptime+"</td>";
-	        	        	        content+="<td class=\"td-manage\">";	        
-	        content+="<a title=\"编辑\" href=\"javascript:;\" onclick=\"pub_edit('编辑','/SysPrivilege/SysPrivilegeView.do?id="+o.id+"')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a>"; 
-	        content+="<a title=\"删除\" href=\"javascript:;\" onclick=\"pub_del(this,"+o.id+")\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>";
-	        content+="</td></tr>";
-	         
-	    });
-	    return content;
+
+    /*管理员-停用*/
+    function admin_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            var id = $(obj).parents("tr").find("td:eq(1)").text();
+
+            $.ajax({
+                type: 'POST',
+                url: '/SysPrivilege/stop.do?id='+id,
+                dataType: 'json',
+                success: function(result){
+                    if(result.success){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已停用</span>');
+                        $(obj).remove();
+                        layer.msg('已停用!',{icon: 5,time:1000});
+                    }
+                    else{
+                        layer.msg(result.msg,{icon:1,time:1000});
+                    }
+                },
+            });
+        });
+    }
+
+    /*管理员-启用*/
+    function admin_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            var id = $(obj).parents("tr").find("td:eq(1)").text();
+
+            $.ajax({
+                type: 'POST',
+                url: '/SysPrivilege/start.do?id='+id,
+                dataType: 'json',
+                success: function(result){
+                    if(result.success){
+                        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+                        $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                        $(obj).remove();
+                        layer.msg('已启用!', {icon: 6,time:1000});
+                    }
+                    else{
+                        layer.msg(result.msg,{icon:1,time:1000});
+                    }
+                },
+            });
+
+
+        });
+    }
+
+    /*批量删除*/
+	function datadel() {
+        var ids = $(':checkbox:checked').parents("tr").find("td:eq(1)");
+        if(ids.length == 0){
+            layer.msg("抱歉，请您先选择您要删除的菜单。",{icon:5,time:2000});
+            return;
+		}
+		var str = ids.map(function () {
+			return this.innerHTML;
+        }).get().join(',');
+
+        layer.confirm('确认要删除吗？',function(index){
+            $.ajax({
+                type: 'POST',
+                url: '/SysPrivilege/batchDelete.do?ids='+str,
+                dataType: 'json',
+                success: function(result){
+                    if(result.success){
+						$(':checkbox:checked').parents("tr").remove();
+                        layer.msg(result.msg,{icon:1,time:1000});
+                    }
+                    else{
+                        layer.msg(result.msg,{icon:1,time:1000});
+                    }
+                },
+            });
+        });
+
 	}
-
-/*添加*/
-function pub_add(title,url){
-	layer_maxshow(title,url);
-}
-/*编辑*/
-function pub_edit(title,url){
-	layer_maxshow(title,url);
-}
-/*删除*/
-function pub_del(obj,id){
-	layer.confirm('删除须谨慎，确认要删除吗？',function(){
-		$.ajax({
-			type: 'POST',
-			url: '/SysPrivilege/Delete.do?id='+id,
-			dataType: 'json',
-			success: function(result){
-				if(result.success)
-				{
-					$(obj).parents("tr").remove();				
-					layer.msg(result.msg,{icon:1,time:1500});
-				}else
-				{
-					layer.msg(result.msg,{icon:2,time:1500});
-				}
-			},
-			error:function(data) {
-				layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
-			}
-		});		
-	});
-}
-/*批量删除*/
-function BatchDelete()
-{	
-	var ids = '';
-	$('table input[type="checkbox"]:checked').each(function(){		
-		ids += $(this).val() + ',';
-	});
-	layer.confirm('删除须谨慎，确认要删除吗？',function(){
-		$.ajax({
-			type: 'POST',
-			url: '/SysPrivilege/BatchDelete.do?ids='+ids,
-			dataType: 'json',
-			success: function(result){
-				if(result.success)
-				{					    
-					getpage(1);//批量删除成功后重新加载第一页							
-					layer.msg(result.msg,{icon:1,time:1500});
-				}else
-				{
-					layer.msg(result.msg,{icon:2,time:1500});
-				}
-			},
-			error:function(data) {
-				layer.msg("对不起，服务请求错误！",{icon:2,time:1500});
-			}
-		});		
-	});
-	
-}
-
 </script>
 #end
 #extends("/Home/Layout.vm")

@@ -36,10 +36,9 @@ public class SysRole implements Serializable {
 	private String rolename;
 
 	/**
-	 * 角色类型
+	 * 角色名称
 	 */
 	private String roletype;
-
 	/**
 	 * 显示顺序
 	 */
@@ -64,8 +63,18 @@ public class SysRole implements Serializable {
 	 * 操作时间
 	 */
 	private Date uptime;
+	
+	@TableField(exist = false)
+	private SysUser sysUser;
 
+	
+	public SysUser getSysUser() {
+		return sysUser;
+	}
 
+	public void setSysUser(SysUser sysUser) {
+		this.sysUser = sysUser;
+	}
 
 	public Integer getId() {
 		return id;
@@ -98,7 +107,6 @@ public class SysRole implements Serializable {
 	public void setRoletype(String roletype) {
 		this.roletype = roletype;
 	}
-
 	public Integer getSequence() {
 		return sequence;
 	}

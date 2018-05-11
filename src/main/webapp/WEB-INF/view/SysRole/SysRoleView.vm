@@ -1,56 +1,91 @@
 #override("content")
 <article class="page-container">
 	<form class="form form-horizontal" id="form-view">
-	            		<input type="hidden" id="id" name="id" value="$!{SysRole.id}"/>
-				        		<div class="row cl">
+		<input type="hidden" id="id" name="id" value="$!{sysrole.id}"/>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色类型：</label>
+		#if(${sysrole.roletype}=="b")
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box radius">
+					<select class="select"  size="1" id="type">
+	                    <option value="a">运营端角色</option>
+	                    <option value="c">餐厅端角色</option>	                    
+	                    <option value="b" selected>代理端角色</option>       
+					</select>
+				</span>
+            </div>			
+		#elseif(${sysrole.roletype}=="c")
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box radius">
+					<select class="select"  size="1" id="type">
+	                    <option value="a">运营端角色</option>
+	                    <option value="c" selected>餐厅端角色</option>	                    
+	                    <option value="b">代理端角色</option>       
+					</select>
+				</span>
+            </div>
+		#else
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box radius">
+					<select class="select"  size="1" id="type">
+	                    <option value="a" selected>运营端角色</option>
+	                    <option value="c">餐厅端角色</option>	                    
+	                    <option value="b">代理端角色</option>       
+					</select>
+				</span>
+            </div>	
+		#end
+        </div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色编码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="rolecode" name="rolecode" type="text" class="input-text" value="$!{SysRole.rolecode}" placeholder="请输入角色编码" >
+				<input type="text" class="input-text radius" value="$!{sysrole.rolecode}" placeholder="" id="roleCode" name="rolecode" readonly>
 			</div>
 		</div>
-				        		<div class="row cl">
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="rolename" name="rolename" type="text" class="input-text" value="$!{SysRole.rolename}" placeholder="请输入角色名称" >
+				<input type="text" class="input-text radius" value="$!{sysrole.rolename}" placeholder="" id="roleName" name="rolename">
 			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色类型：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="roletype" name="roletype" type="text" class="input-text" value="$!{SysRole.roletype}" placeholder="请输入角色类型" >
-			</div>
-		</div>
-				        		<div class="row cl">
+		</div>		
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>显示顺序：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="sequence" name="sequence" type="text" class="input-text" value="$!{SysRole.sequence}" placeholder="请输入显示顺序" >
+				<input type="text" class="input-text radius" value="$!{sysrole.sequence}" placeholder="" id="sequence" name="sequence">
 			</div>
 		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否启用：</label>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">是否启用：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="status" name="status" type="text" class="input-text" value="$!{SysRole.status}" placeholder="请输入是否启用" >
+		        	#if(${sysrole.status}=="b")
+					 <div class="radio-box">
+					    <input type="radio" id="radio-1" name="status" value="a">
+					    <label for="radio-1">是</label>
+					 </div>
+					  <div class="radio-box">
+					    <input type="radio" id="radio-2" name="status" value="b" checked>
+					    <label for="radio-2">否</label>
+					  </div>			
+					#else
+					<div class="radio-box">
+					    <input type="radio" id="radio-1" name="status" value="a" checked>
+					    <label for="radio-1">是</label>
+					 </div>
+					  <div class="radio-box">
+					    <input type="radio" id="radio-2" name="status" value="b">
+					    <label for="radio-2">否</label>
+					  </div>	
+					#end
+				
 			</div>
 		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>备注：</label>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input id="remark" name="remark" type="text" class="input-text" value="$!{SysRole.remark}" placeholder="请输入备注" >
+				<input type="text" class="input-text radius" value="$!{sysrole.remark}" placeholder="" id="remark" name="remark">
 			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>操作员id：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="uid" name="uid" type="text" class="input-text" value="$!{SysRole.uid}" placeholder="请输入操作员id" >
-			</div>
-		</div>
-				        		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>操作时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input id="uptime" name="uptime" type="text" class="input-text" value="$!{SysRole.uptime}" placeholder="请输入操作时间" >
-			</div>
-		</div>
-						<div class="row cl">
+		</div>		
+		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">				
 				<button type="submit" class="btn btn-danger radius" ><i class="Hui-iconfont">&#xe632;</i> 提交</button>
 				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
@@ -59,64 +94,39 @@
 	</form>
 </article>
 #end
-<!-- 这是一个select示例   
-<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">是否启用：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-		        						<div class="radio-box">
-					    <input type="radio" id="radio-1" name="status" value="a" checked>
-					    <label for="radio-1">是</label>
-					 </div>
-					  <div class="radio-box">
-					    <input type="radio" id="radio-2" name="status" value="b">
-					    <label for="radio-2">否</label>
-					  </div>	
-									
-			</div>
-</div>	 -->
 #override("js")
-<!--请在下方写此页面业务相关的脚本,首先需要引入juery.validate表单验证插件-->
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="/static/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 	$(function(){
-		//表单验证,如果有其他需要直接添加即可，比如可以填入digits:true必须输入数字，这个根据jquery.validate插件验证规则
+		//alert($!{sysrole.id});
+		//if($!{sysrole.id} != null){
+			//$('#showType').hide();
+		//}
+		//表单验证	
 		$("#form-view").validate({
 				rules:{
-				 				  				 				  					rolecode:{
+					roleName:{
 						required:true,
 					},
-				  				 				  					rolename:{
+					sequence:{
+					    digits:true,
 						required:true,
 					},
-				  				 				  					roletype:{
+					status:{
 						required:true,
-					},
-				  				 				  					sequence:{
-						required:true,
-					},
-				  				 				  					status:{
-						required:true,
-					},
-				  				 				  					remark:{
-						required:true,
-					},
-				  				 				  					uid:{
-						required:true,
-					},
-				  				 				  					uptime:{
-						required:true,
-					},
-				  				 				},
+					}
+				},
 				onkeyup:false,
 				focusCleanup:true,
 				success:"valid",
 				submitHandler:function(form){
-				var param = $("#form-view").serialize(); //表单内容序列化
+				var param = $("#form-view").serialize();					 
+				var type=$('#type').val();
 					 $.ajax({
-					        url: '/SysRole/Save.do',
+					        url: '/SysRole/Save.do?type='+type,
 					 		type: 'POST',
 					 		dataType:'json',
 							data:param,
