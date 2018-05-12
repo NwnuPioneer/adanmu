@@ -1,0 +1,97 @@
+#override("content")
+<div class="page-container">
+<div id="main" style="height:600px;width: auto;"></div>
+</div>
+#end
+#override("js")
+<!--请在下方写此页面业务相关的脚本,首先需要引入laypage插件-->
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--  <script type="text/javascript" src="/static/lib/echarts/3.4.0/echarts.common.min.js"></script>-->
+<script type="text/javascript" src="/static/lib/echarts/3.4.0/echarts.min.js"></script>
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('main'));
+myChart.showLoading();
+/*     $.ajax({
+	    type : "get",
+	    async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+	    //url : "/MoneyManagement/orderList.do",    //请求发送到
+	    data : {logmin:$('#logmin').val(),logmax:$('#logmax').val(),name:$('#name').val()},
+	    dataType : "json",        //返回数据形式为json
+	     success : function(result) { 
+			var yMax = result.maxValue;
+			var dataShadow = [];
+			for (var i = 0; i < result.total.length; i++) {
+			    dataShadow.push(yMax);
+			} */
+
+			option = {
+
+				    title: {
+				        text: '真实弹幕占比',
+				        left: 'center',
+				        top: 20
+				    },
+
+				    tooltip : {
+				        trigger: 'item',
+				        formatter: "{a} <br/>{b} : {c} ({d}%)"
+				    },
+
+				    visualMap: {
+				        show: false,
+				        min: 80,
+				        max: 600,
+				        inRange: {
+				            colorLightness: [0, 1]
+				        }
+				    },
+				    series : [
+				        {
+				            name:'弹幕来源',
+				            type:'pie',
+				            radius : '55%',
+				            center: ['50%', '50%'],
+				            data:[
+				                {value:335, name:'真实弹幕'},
+				                {value:400, name:'机器人'}
+				            ].sort(function (a, b) { return a.value - b.value; }),
+				            roseType: 'radius',
+				            labelLine: {
+				                normal: {
+				                    lineStyle: {
+				                        color: 'rgba(255, 255, 255, 0.3)'
+				                    },
+				                    smooth: 0.2,
+				                    length: 10,
+				                    length2: 20
+				                }
+				            },
+				            itemStyle: {
+				                normal: {
+				                    color: '#c23531',
+				                    shadowBlur: 200,
+				                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+				                }
+				            },
+
+				            animationType: 'scale',
+				            animationEasing: 'elasticOut',
+				            animationDelay: function (idx) {
+				                return Math.random() * 200;
+				            }
+				        }
+				    ]
+				};
+			
+	         myChart.setOption(option);
+	         myChart.hideLoading();   
+/* 	    },
+	    error : function(errorMsg) {
+		    alert("图表请求数据失败!");
+		    myChart.hideLoading();
+	    }
+	})  */
+</script>
+#end
+#extends("/Home/Layout.vm")

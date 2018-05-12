@@ -31,9 +31,24 @@
 </style>
 </head>
 <body>
-<div></div>
+<!-- 背景效果 -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
+  <defs>
+    <filter id="squiggly">
+      <feTurbulence baseFrequency="0.22" numOctaves="3" result="noise" seed="0" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" />
+    </filter>
+  </defs>
+</svg>
+ 
+<script type="text/javascript" src='/static/h-ui.admin/js/TweenMax.min.js'></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/index.js"></script>
+
 <div class="loginWraper">
 	<div id="loginform" class="loginBox">
+		<h3 style="margin-left: 125px; margin-top: -35px; color: #FFFFFF;">
+			斗鱼弹幕大数据分析可视化管理平台
+		</h3>
 		<form id="syslogin_form"  class="form form-horizontal">	
 			<div class="row cl">
 				<label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>

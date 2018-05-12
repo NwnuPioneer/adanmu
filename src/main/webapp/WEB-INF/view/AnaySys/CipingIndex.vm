@@ -1,0 +1,51 @@
+#override("content")
+<div class="page-container">
+<div id="main" style="height:600px;width: auto;"></div>
+</div>
+#end
+#override("js")
+<!--请在下方写此页面业务相关的脚本,首先需要引入laypage插件-->
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/echarts/3.4.0/echarts.common.min.js"></script>
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('main'));
+myChart.showLoading();
+/*     $.ajax({
+	    type : "get",
+	    async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+	    //url : "/MoneyManagement/orderList.do",    //请求发送到
+	    data : {logmin:$('#logmin').val(),logmax:$('#logmax').val(),name:$('#name').val()},
+	    dataType : "json",        //返回数据形式为json
+	     success : function(result) { 
+			var yMax = result.maxValue;
+			var dataShadow = [];
+			for (var i = 0; i < result.total.length; i++) {
+			    dataShadow.push(yMax);
+			} */
+
+			option = {
+				    xAxis: {
+				        type: 'category',
+				        data: ['斗鱼', '唱歌', '粉丝', '其他', '优秀', '拜拜', '呵呵']
+				    },
+				    yAxis: {
+				        type: 'value'
+				    },
+				    series: [{
+				        data: [120, 200, 150, 80, 70, 110, 130],
+				        type: 'bar'
+				    }]
+				};
+
+	         myChart.setOption(option);
+	         myChart.hideLoading();   
+/* 	    },
+	    error : function(errorMsg) {
+		    alert("图表请求数据失败!");
+		    myChart.hideLoading();
+	    }
+	})  */
+</script>
+#end
+#extends("/Home/Layout.vm")
