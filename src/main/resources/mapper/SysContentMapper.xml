@@ -8,6 +8,7 @@
 		<id column="id" property="id" />
 		<result column="pid" property="pid" />
 		<result column="fid" property="fid" />
+		<result column="type" property="type" />
 		<result column="txt" property="txt" />
 		<result column="sendtime" property="sendtime" />
 	</resultMap>
