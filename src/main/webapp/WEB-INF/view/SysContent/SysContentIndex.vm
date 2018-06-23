@@ -1,10 +1,9 @@
 #override("content")
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 一级目录 <span class="c-gray en">&gt;</span> 二级目录 <a class="btn btn-success radius r" id="btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 弹幕管理 <span class="c-gray en">&gt;</span> 弹幕列表 <a class="btn btn-success radius r" id="btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray"> 
 		<span class="l">
-		<a href="javascript:;" onclick="BatchDelete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-		<a class="btn btn-primary radius" href="javascript:;" onclick="pub_add('添加','/SysContent/SysContentView.do')"><i class="Hui-iconfont">&#xe600;</i> 添加</a>		 
+		<a href="javascript:;" onclick="BatchDelete()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
 		</span> 
 	</div>
 	<table id="tablelist" class="table table-border table-bordered table-hover table-bg">
@@ -22,10 +21,10 @@
 			</tr>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" value="all" name="ckall" id="ckall"></th>
-								 								 				<th width="100">主播id</th>
-												 				<th width="100">粉丝id</th>
-												 				<th width="100">弹幕</th>
-												 				<th width="100">发送时间</th>
+								 								 				<th width="100">直播间id</th>
+												 				<th width="80">粉丝id</th>
+												 				<th width="300">弹幕</th>
+												 				<th width="200">发送时间</th>
 												<th>操作</th>
 			</tr>
 		</thead>

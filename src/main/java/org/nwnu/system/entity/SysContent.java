@@ -36,6 +36,11 @@ public class SysContent implements Serializable {
 	private Integer fid;
 
 	/**
+	 * 类型
+	 */
+	private String type;
+	
+	/**
 	 * 弹幕
 	 */
 	private String txt;
@@ -69,6 +74,14 @@ public class SysContent implements Serializable {
 
 	public void setFid(Integer fid) {
 		this.fid = fid;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getTxt() {

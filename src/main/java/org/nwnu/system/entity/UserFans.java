@@ -26,6 +26,11 @@ public class UserFans implements Serializable {
 	private Integer id;
 
 	/**
+	 * uid
+	 */
+	private Integer uid;
+
+	/**
 	 * 昵称
 	 */
 	private String namme;
@@ -39,6 +44,16 @@ public class UserFans implements Serializable {
 	 * 用户等级
 	 */
 	private Integer level;
+
+
+
+	public Integer getUid() {
+		return uid;
+	}
+
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
 
 
 
