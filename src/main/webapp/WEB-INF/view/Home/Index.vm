@@ -34,8 +34,6 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/static/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript" src="/static/lib/jquery.toast/jquery.toast.js"></script>
-<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
-<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
 <script type="text/javascript">
 $(function(){
 	/*$("#min_title_list li").contextMenu('Huiadminmenu', {

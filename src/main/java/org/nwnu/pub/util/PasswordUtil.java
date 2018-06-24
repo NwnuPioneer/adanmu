@@ -123,7 +123,6 @@ public class PasswordUtil {
 			cipher.init(Cipher.DECRYPT_MODE, key, parameterSpec);
 
 			passDec = cipher.doFinal(hexStringToBytes(ciphertext));
-			
 		}
 
 		catch (Exception e) {
