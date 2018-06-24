@@ -1,9 +1,6 @@
 # adanmu
 Barrage big data analysis platform
 
-### 基于弹幕评论的大数据分析平台使用说明
- - 项目地址：http://39.107.225.74/Login/SysLogin.do
- - 管理员帐号：18298325268 密码：123456
 #### 目前已完成的功能
  - 系统权限模块
  - 主播管理
