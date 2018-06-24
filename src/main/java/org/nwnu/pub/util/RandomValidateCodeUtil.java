@@ -12,6 +12,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.nwnu.pub.util.PasswordUtil;
+
 /**
  * -----------------------------------------
  *
@@ -103,8 +105,10 @@ public class RandomValidateCodeUtil {
         for (int i = 1; i <= stringNum; i++) {
             randomString = drowString(g, randomString, i);
         }
+        //加密随机字符串
+        //randomString=PasswordUtil.encrypt("0000",randomString,PasswordUtil.getStaticSalt());
         //1：将随机生成的验证码放入Cookie中
-        Cookie cookie = new Cookie(key, randomString);
+        Cookie cookie = new Cookie(key, randomString);//加密后放入Cookie非常安全
         response.addCookie(cookie);
         //2：将随机生成的验证码放入session中
 //        String sessionid = request.getSession().getId();

@@ -61,6 +61,8 @@ public class LoginController extends BaseController{
     @ResponseBody
     public boolean checkTcode(HttpServletRequest request, HttpServletResponse response) {
         String validateCode = request.getParameter("validecode");
+        //获取的验证码信息加密后与Cookie中的密文对比
+        //validateCode=PasswordUtil.decrypt("0000",validateCode,PasswordUtil.getStaticSalt());
         String code = null;
         //1:获取cookie里面的验证码信息
         Cookie[] cookies = request.getCookies();
