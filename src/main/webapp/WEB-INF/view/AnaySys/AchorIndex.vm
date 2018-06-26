@@ -1,0 +1,68 @@
+#override("content")
+<div class="page-container">
+<div id="main" style="height:600px;width: auto;"></div>
+</div>
+#end
+#override("js")
+<!--请在下方写此页面业务相关的脚本,首先需要引入laypage插件-->
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--  <script type="text/javascript" src="/static/lib/echarts/3.4.0/echarts.common.min.js"></script>-->
+<script type="text/javascript" src="/static/lib/echarts/3.4.0/echarts.min.js"></script>
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('main'));
+myChart.showLoading();
+        $.ajax({
+	    	type : "get",
+	    	async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+	    	url : "/AnaySys/getAnchorList.do",    //请求发送到
+	    	dataType : "json",        //返回数据形式为json
+	     success : function(result) { 
+			option = {
+				    title: {
+				        text: '本平台主播弹幕统计',
+				        subtext: '数据真实，爬取自斗鱼弹幕服务器'
+				    },
+				    tooltip: {
+				        trigger: 'axis',
+				        axisPointer: {
+				            type: 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['弹幕数量']
+				    },
+				    grid: {
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    xAxis: {
+				        name:'数量/条',
+				        type: 'value',
+				        boundaryGap: [0, 0.01]
+				    },
+				    yAxis: {
+				        type: 'category',
+				        data: result.acnhor
+				    },
+				    series: [
+				        {
+				            type: 'bar',
+				            data: result.number
+				        }
+				    ]
+				};
+			
+	         myChart.setOption(option);
+	         myChart.hideLoading();   
+ 	    },
+	    error : function(errorMsg) {
+		    alert("图表请求数据失败!");
+		    myChart.hideLoading();
+	    }
+	})  
+</script>
+#end
+#extends("/Home/Layout.vm")
