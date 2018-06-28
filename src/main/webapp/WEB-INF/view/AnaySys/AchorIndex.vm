@@ -1,6 +1,6 @@
 #override("content")
 <div class="page-container">
-<div id="main" style="height:600px;width: auto;"></div>
+<div id="main" style="height:450px;width: auto;"></div>
 </div>
 #end
 #override("js")

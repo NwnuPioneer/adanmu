@@ -1,6 +1,6 @@
 #override("content")
 <div class="page-container">
-<div id="main" style="height:600px;width: auto;"></div>
+<div id="main" style="height:450px;width: auto;"></div>
 </div>
 #end
 #override("js")
@@ -11,87 +11,87 @@
 <script type="text/javascript" src="/static/lib/echarts/3.4.0/echarts.min.js"></script>
 <script type="text/javascript">
 var myChart = echarts.init(document.getElementById('main'));
-myChart.showLoading();
-/*     $.ajax({
+var option = {
+        title: {
+            show:true,
+            text:'粉丝发言等级分布情况',
+            x: 'center'
+        },
+        toolbox: {
+        	show:true,
+        	feature:{   
+        		dataView : {readOnly: false},
+        		restore:{},
+        		saveAsImage:{}
+        	}
+        },
+        tooltip: {
+            trigger:'item',
+            formatter:"{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient:'vertical',
+            left: 'left'
+        },
+        itemStyle: {
+			normal: {
+		        // 阴影的大小
+		        shadowBlur: 200,
+		        // 阴影水平方向上的偏移
+		        shadowOffsetX: 0,
+		        // 阴影垂直方向上的偏移
+		        shadowOffsetY: 0,
+		        // 阴影颜色
+		        shadowColor: 'rgba(0, 0, 0, 0.5)'
+			},
+			emphasis: {
+		        shadowBlur: 200,
+		        shadowColor: 'rgba(0, 0, 0, 0.5)'
+		    }
+		},
+        series: [
+            {
+                name: '等级分布',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%','60%'],
+                roseType: 'angle'
+            }
+        ]
+	};
+    myChart.setOption(option);
+    myChart.showLoading();
+    $.ajax({
 	    type : "get",
 	    async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-	    //url : "/MoneyManagement/orderList.do",    //请求发送到
-	    data : {logmin:$('#logmin').val(),logmax:$('#logmax').val(),name:$('#name').val()},
+	    url : "/AnaySys/getReal.do",    //请求发送到
 	    dataType : "json",        //返回数据形式为json
 	     success : function(result) { 
-			var yMax = result.maxValue;
-			var dataShadow = [];
-			for (var i = 0; i < result.total.length; i++) {
-			    dataShadow.push(yMax);
-			} */
-
-			option = {
-
-				    title: {
-				        text: '真实弹幕占比',
-				        left: 'center',
-				        top: 20
-				    },
-
-				    tooltip : {
-				        trigger: 'item',
-				        formatter: "{a} <br/>{b} : {c} ({d}%)"
-				    },
-
-				    visualMap: {
-				        show: false,
-				        min: 80,
-				        max: 600,
-				        inRange: {
-				            colorLightness: [0, 1]
-				        }
-				    },
-				    series : [
-				        {
-				            name:'弹幕来源',
-				            type:'pie',
-				            radius : '55%',
-				            center: ['50%', '50%'],
-				            data:[
-				                {value:335, name:'真实弹幕'},
-				                {value:400, name:'机器人'}
-				            ].sort(function (a, b) { return a.value - b.value; }),
-				            roseType: 'radius',
-				            labelLine: {
-				                normal: {
-				                    lineStyle: {
-				                        color: 'rgba(255, 255, 255, 0.3)'
-				                    },
-				                    smooth: 0.2,
-				                    length: 10,
-				                    length2: 20
-				                }
-				            },
-				            itemStyle: {
-				                normal: {
-				                    color: '#c23531',
-				                    shadowBlur: 200,
-				                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-				                }
-				            },
-
-				            animationType: 'scale',
-				            animationEasing: 'elasticOut',
-				            animationDelay: function (idx) {
-				                return Math.random() * 200;
-				            }
-				        }
-				    ]
-				};
-			
-	         myChart.setOption(option);
-	         myChart.hideLoading();   
-/* 	    },
+             myChart.setOption({        //填入数据
+                legend: {
+                    data: result.level
+                },
+                series: [{
+                    data: (function(){
+                    	var rs = [];
+                    	for(var res in result.level){
+                    		rs.push({
+                    			name :result.level[res],
+                    			value:result.count[res]
+                    		});
+                    	}
+                    	return rs;
+                    })()
+                }]
+            });
+            
+             myChart.hideLoading();    //隐藏加载动画
+	    },
 	    error : function(errorMsg) {
 		    alert("图表请求数据失败!");
 		    myChart.hideLoading();
 	    }
-	})  */
+	}) 
 </script>
 #end
 #extends("/Home/Layout.vm")

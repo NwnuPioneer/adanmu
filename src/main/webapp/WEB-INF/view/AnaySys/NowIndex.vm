@@ -1,6 +1,6 @@
 #override("content")
 <div class="page-container">
-<div id="main" style="height:600px;width: auto;"></div>
+<div id="main" style="height:480px;width: auto;"></div>
 </div>
 #end
 #override("js")
@@ -23,40 +23,223 @@ myChart.showLoading();
 			for (var i = 0; i < result.total.length; i++) {
 			    dataShadow.push(yMax);
 			} */
+			var placeHolderStyle = {
+				    normal: {
+				        label: {
+				            show: false
+				        },
+				        labelLine: {
+				            show: false
+				        },
+				        color: "rgba(0,0,0,0)",
+				        borderWidth: 0
+				    },
+				    emphasis: {
+				        color: "rgba(0,0,0,0)",
+				        borderWidth: 0
+				    }
+				};
 
-			option = {
-				    tooltip: {
-				        trigger: 'axis',
-				        position: function (pt) {
-				            return [pt[0], '10%'];
+
+				var dataStyle = {
+				    normal: {
+				        formatter: '{c}%',
+				        position: 'center',
+				        show: true,
+				        textStyle: {
+				            fontSize: '28',
+				            fontWeight: 'normal',
+				            color: '#fff'
 				        }
-				    },
-				    title: {
-				        left: 'center',
-				        text: '实时弹幕发送量',
-				    },
-				    toolbox: {
-				        feature: {
-				            dataZoom: {
-				                yAxisIndex: 'none'
-				            },
-				            restore: {},
-				            saveAsImage: {}
+				    }
+				};
+
+
+				option = {
+				    backgroundColor: '#142058',
+				    title: [
+				        {
+				        text: '弹幕言论倾向性分析',
+				        subtext: '数据来源部分弹幕评论',
+				        x: '20',
+				        y: '20',
+				        textStyle: {
+				            color: '#fff',
+				            fontSize: 20
 				        }
-				    },
-				    xAxis: {
-				        type: 'category',
-				        boundaryGap: false,
-				        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-				    },
-				    yAxis: {
-				        type: 'value'
-				    },
+				    },{
+				        text: '正面评论',
+				        left: '29.8%',
+				        top: '60%',
+				        textAlign: 'center',
+				        textStyle: {
+				            fontWeight: 'normal',
+				            fontSize: '16',
+				            color: '#fff',
+				            textAlign: 'center',
+				        },
+				    }, {
+				        text: '负面评论',
+				        left: '70%',
+				        top: '60%',
+				        textAlign: 'center',
+				        textStyle: {
+				            color: '#fff',
+				            fontWeight: 'normal',
+				            fontSize: '16',
+				            textAlign: 'center',
+				        },
+				    }],
 				    series: [{
-				        data: [820, 932, 901, 934, 1290, 1330, 1320],
-				        type: 'line',
-				        areaStyle: {}
-				    }]
+				            type: 'pie',
+				            hoverAnimation: false, //鼠标经过的特效
+				            radius: ['25%', '31%'],
+				            center: ['30%', '50%'],
+				            startAngle: 225,
+				            labelLine: {
+				                normal: {
+				                    show: false
+				                }
+				            },
+				            label: {
+				                normal: {
+				                    position: 'center'
+				                }
+				            },
+				            data: [{
+				                    value: 41.07,
+				                    itemStyle: {
+				                        normal: {
+				                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+				                                offset: 0,
+				                                color: '#99da69'
+				                            }, {
+				                                offset: 1,
+				                                color: '#01babc'
+				                            }]),
+				                        }
+				                    },
+				                    label: dataStyle,
+				                }, {
+				                    value: 25,
+				                    itemStyle: placeHolderStyle,
+				                },
+
+				            ]
+				        },
+				        {
+				            type: 'pie',
+				            hoverAnimation: false,
+				            radius: ['25%', '31%'],
+				            center: ['70%', '50%'],
+				            startAngle: 225,
+				            labelLine: {
+				                normal: {
+				                    show: false
+				                }
+				            },
+				            label: {
+				                normal: {
+				                    position: 'center'
+				                }
+				            },
+				            data: [{
+				                    value: 58.93,
+				                    itemStyle: {
+				                        normal: {
+				                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+				                                offset: 0,
+				                                color: '#9f3edd'
+				                            }, {
+				                                offset: 1,
+				                                color: '#4897f6'
+				                            }]),
+				                        }
+				                    },
+				                    label: dataStyle,
+				                }, {
+				                    value: 80,
+				                    itemStyle: placeHolderStyle,
+				                },
+
+				            ]
+				        },
+				        
+				        //外圈的边框
+				        {
+				            // name: '总人数',
+				            type: 'pie',
+				            hoverAnimation: false, //鼠标经过的特效
+				            radius: ['31%', '32%'],
+				            center: ['30%', '50%'],
+				            startAngle: 225,
+				            labelLine: {
+				                normal: {
+				                    show: false
+				                }
+				            },
+				            label: {
+				                normal: {
+				                    position: 'center'
+				                }
+				            },
+				            data: [{
+				                    value: 75,
+				                    itemStyle: {
+				                        normal: {
+				                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+				                                offset: 0,
+				                                color: '#01babc'
+				                            }, {
+				                                offset: 1,
+				                                color: '#99da69'
+				                            }]),
+				                        }
+				                    },
+				                }, {
+				                    value: 25,
+				                    itemStyle: placeHolderStyle,
+				                },
+
+				            ]
+				        },
+				        {
+				            type: 'pie',
+				            hoverAnimation: false,
+				            radius: ['31%', '32%'],
+				            center: ['70%', '50%'],
+				            startAngle: 225,
+				            labelLine: {
+				                normal: {
+				                    show: false
+				                }
+				            },
+				            label: {
+				                normal: {
+				                    position: 'center'
+				                }
+				            },
+				            data: [{
+				                    value: 75,
+				                    itemStyle: {
+				                        normal: {
+				                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+				                                offset: 0,
+				                                color: '#4897f6'
+				                            }, {
+				                                offset: 1,
+				                                color: '#9f3edd'
+				                            }]),
+				                        }
+				                    },
+				                }, {
+				                    value: 25,
+				                    itemStyle: placeHolderStyle,
+				                },
+
+				            ]
+				        },
+				    ]
 				};
 			
 	         myChart.setOption(option);
