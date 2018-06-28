@@ -10,3 +10,6 @@ Barrage big data analysis platform
 #### 待开发功能
  - 系统统计
  - 大数据分析模块
+### 基于弹幕评论的大数据分析平台使用说明
+ - 项目地址：http://39.107.225.74/Login/SysLogin.do
+ - 管理员帐号：18298325268 密码：123456
